@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	
+
+	.b {
+		display: flex;
+		justify-content: center;
+	}
+
+	.container {
+		width: 100%;
+		max-width: 1200px;
+
+	}
+
+	.nav {
+		display: flex; <!-- --> /*многоцелевое свойство как элемент должен быть показан в документе */
+		list-style: none;
+	}
+	.item {
+		margin-right: 20px;
+		list-style: none;
+	}
+
+
+	.item {
+		margin-right: 20px;
+	}
+
+	.item:last-child {
+		margin-right: 0;
+	}
+
+	.link {
+		text-decoration: none;
+		color: #777777;
+		text-transform: uppercase;
+	}
+
+	.link:hover {
+		color: #a00;
+	}
+
+	header {
+		display: flex;
+		flex-direction: row-reverse;
+	}
+
+</style>
+</head>
+<body class = "b">
+	<div class="container">
+		<header>
+			<nav class="nav">
+				<li class="item"><a href="#" class="link">home</a></li>
+				<li class="item"><a href="#"  class="link">blog</a></li>
+				<li class="item"><a href="#"  class="link">about</a></li>
+				<li class="item"><a href="#"  class="link">portfolio</a></li>
+				<li class="item"><a href="#"  class="link">contacts</a></li>
+
+				<abbr title="Советский Союз">USSR</abbr>
+				<acronym title="Document OBj Model">DOM</acronym>
+			</nav>	
+		</header>
+	</div>
+
+
+</body>
+</html>

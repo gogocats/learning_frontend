@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8">
+
+  <title>Calculator</title>
+</head>
+<body>
+
+  <form class="calc"> 
+    <p class="calc-display"> 
+      <input disabled type="text" name="res" id="res" value="0" class="calc-display-input" onfocus="this.blur()"> 
+    </p> 
+    <p class="calc-row"> 
+      <button type="button" class="calc-button calc-button-gray">mrc</button> 
+      <button type="button" class="calc-button calc-button-gray">m-</button> 
+      <button type="button" class="calc-button calc-button-gray">m+</button> 
+      <button type="button" class="operations calc-button calc-button-red calc-button-big">/</button> 
+    </p> 
+    <p class="calc-row"> 
+      <button type="button" class="number calc-button">7</button> 
+      <button type="button" class="number calc-button">8</button> 
+      <button type="button" class="number calc-button">9</button> 
+      <button type="button" class="operations calc-button calc-button-red calc-button-big">*</button> 
+    </p> 
+    <p class="calc-row"> 
+      <button type="button" class="number calc-button">4</button> 
+      <button type="button" class="number calc-button">5</button> 
+      <button type="button" class="number calc-button">6</button> 
+      <button type="button" class="operations calc-button calc-button-red calc-button-big">-</button> 
+    </p> 
+    <p class="calc-row"> 
+      <button type="button" class="number calc-button">1</button> 
+      <button type="button" class="number calc-button">2</button> 
+      <button type="button" class="number calc-button">3</button> 
+      <button type="button" class="operations calc-button calc-button-red calc-button-big">+</button> 
+    </p> 
+    <p class="calc-row"> 
+      <button type="button" class="number calc-button">0</button> 
+      <button type="button" id = "decimal" class="calc-button">.</button> 
+      <button type="button" id = "c" class="calc-button">C</button> 
+      <button type="button" id = "result" class="calc-button calc-button-yellow calc-button-big">=</button> 
+    </p> 
+  </form> 
+
+  <script>
+
+var numbersBtn = document.querySelectorAll('.number'); // I первый этап: кнопки забиваем в переменные
+operationsBtn = document.querySelectorAll('.operations');
+decimalBtn = document.getElementById('decimal');
+clearBtn = document.getElementById("c");
+resultBtn = document.getElementById("result");
+display = document.getElementById ("res");
+    memoryCurrentNumber = 0; // переменная текущего значения , также ставим disabled в input
+    memoryNewNumber = true; // переменная нового значения
+    memoryPendingOperation = '';
+    numberOne = 0;
+    numberTwo = 0;
+
+    for (var i=0;i<numbersBtn.length;i++){
+     var numberBtn = numbersBtn[i];
+     numberBtn.addEventListener('click', function (e){
+      numberPress (e.target.textContent);
+    });
+   };
+
+   for (var i=0;i<operationsBtn.length;i++){
+     var operationBtn = operationsBtn[i];
+     operationBtn.addEventListener('click', function (e){
+      console.log(e.target.textContent);
+      operationPress (e.target.textContent);
+    });
+   };
+
+   decimalBtn.addEventListener('click', function (e) {
+    decimal(e.srcElement.id);
+  })
+
+   resultBtn.addEventListener ('click', function (e) {
+    result(e.srcElement.id);
+  });
+
+   clearBtn.addEventListener ('click', function (e) {
+    display.value = 0;
+    numberOne = 0;
+    numberTwo = 0;
+  });
+
+
+   function numberPress(text) {
+    if (memoryNewNumber){
+      if (display.value === '0') {
+        display.value = text;
+        numberOne = display.value;
+      } else { 
+        display.value += text;
+        numberOne = display.value;
+      }
+    }
+    else {
+      if (display.value === '0') {
+        display.value = text;
+        numberTwo = display.value;
+      } else { 
+        display.value += text;
+        numberTwo = display.value;
+      };
+    };
+    console.log ("КлиК по кнопке " + text + " !");
+  };
+
+
+  function operationPress (op){
+    memoryNewNumber = false;
+    display.value = 0;
+    memoryPendingOperation = op;
+
+    var localOperationMemory = display.value;
+    console.log("numberOne", numberOne);
+    console.log("op", op);
+    console.log("numberTwo", numberTwo);
+
+
+
+ /* var localOperationMemory = display.value;
+ 
+    memoryNewNumber = true;
+    if (memoryPendingOperation ==='+'){
+      memoryCurrentNumber = memoryCurrentNumber + parseFloat(localOperationMemory);
+      console.log("localOperationMemory", localOperationMemory);
+    }
+    else if (memoryPeddingOperation === '-'){
+      memoryCurrentNumber -= parseFloat(localOperationMemory);
+    }
+    else if (memoryPeddingOperation === '/'){
+      memoryCurrentNumber /= parseFloat(localOperationMemory);
+    }
+    else if (memoryPeddingOperation === '*'){
+      memoryCurrentNumber *= parseFloat(localOperationMemory);
+    }
+    else {
+      memoryCurrentNumber = parseFloat(localOperationMemory);
+    }
+
+    display.value = memoryCurrentNumber;
+    var memoryPeddingOperation = op;
+
+  console.log('Клик по кнопке ' + op);
+  console.log(memoryCurrentNumber);*/
+};
+
+
+
+
+
+
+
+function decimal (id){
+  console.log ("Клик по кнопке " + id + " !");
+
+};
+
+
+
+function result () {
+
+  console.log(memoryCurrentNumber);
+  console.log("numberOne", numberOne);
+  console.log("op", memoryPendingOperation);
+  console.log("numberTwo", numberTwo);
+
+  if (memoryPendingOperation ==='+'){
+    numberOne = parseFloat(numberOne) + parseFloat(numberTwo);
+    console.log("localOperationMemory", numberTwo);
+  }
+  else if (memoryPendingOperation === '-'){
+    numberOne = parseFloat(numberOne) - parseFloat(numberTwo);
+  }
+  else if (memoryPendingOperation === '/'){
+    numberOne = parseFloat(numberOne) / parseFloat(numberTwo);
+  }
+  else if (memoryPendingOperation === '*'){
+    numberOne = parseFloat(numberOne) * parseFloat(numberTwo);
+  }
+  else {
+      numberOne = parseFloat(numberTwo);
+    }
+
+    console.log ("numberOne ", numberOne);
+    display.value = numberOne;
+  };
+
+
+  function clear (id){
+    console.log ("Клик по кнопке " + id + " !")
+
+  };
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
